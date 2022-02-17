@@ -1,0 +1,43 @@
+.boxes {
+  display: flex;
+  justify-content: center;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 4;
+}
+.boxesFiltro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.box_a {
+  position: relative;
+  width: 45%;
+  background-image: url("../img/quiz.png");
+  margin: 8px;
+  height: 238px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border-radius: 16px;
+  box-shadow: 2px 5px #aaa;
+  text-decoration: none;
+  color: black;
+}
+.box_a:hover {
+  box-shadow: 2px 5px #96c7c1;
+}
+.box_filtro_a {
+  width: 90%;
+}
+
+.box-content {
+  margin: 8px;
+  line-height: 1.5;
+}
+.favourit {
+  position: absolute;
+  padding: 20px;
+  top: 0;
+  right: 0;
+}
