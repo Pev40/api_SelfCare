@@ -1,5 +1,5 @@
 import { TitlePage } from "../../components/title-page";
-import LoginForm from "../../components/Login/LoginForm";
+import { FormLogin } from "../login/components/formlogin";
 
 function PageLogin() {
   return (
@@ -9,10 +9,10 @@ function PageLogin() {
         subtitle="Ingrese su Correo y Contraseña"
       />
       <div className="form">
-      <LoginForm />
+      <FormLogin/>
       </div>
     </div>
   );
 }
 
-export {PageLogin};
+export { PageLogin };

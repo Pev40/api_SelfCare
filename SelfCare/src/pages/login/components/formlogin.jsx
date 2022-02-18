@@ -1,47 +1,42 @@
 import { Form, Input, Button} from 'antd';
+import { useHistory } from 'react-router-dom';
+import { post } from '../../../servicies/api/api.service';
 import "./formlogin.css"
-
-import Login, { loginFields } from "models/Login.model";
-import { useContext, useState } from "react";
-import AuthContext from "contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 function FormLogin(){
-
-  const { singIn } = useContext(AuthContext);
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { 
-    register,
-    handle,
-    formState: { errors },
-  }= useForm({ resolver: yupResolver(Login) });
-
-
-  const handleSubmitLoginForm = async (values) => {
+  const history = useHistory();
+  const handleFinish = async(values) =>{
     try {
-      setIsLoading(true);
-      await signIn({ data: values });
-      navigate("/clientes");
+          console.log("Holass",values)
+    const registro = await post({
+      url: '/usuario/login',
+      data: {
+        Email : values.email,
+        Password : values.password
+      }
+    })
+    console.log(registro);
+    history.push('/userinterface');  
     } catch (error) {
-      setIsLoading(false);
       console.error(error);
     }
-  };
 
+  }
 
     return(
         <Form
+      onSubmit={()=>{
+        console.log("Holass")
+        
+      }}
       name="basic"
       initialValues={{ remember: true }}
       autoComplete="off"
+      onFinish={handleFinish}
     >
       <Form.Item className="grid grid-cols-1 px-5 justify-items-start font-bold w-full"
         label="Email"
         name="email"
-        rules={[{ required: true, message: 'Por favor, Ingresa tu correo' }]}
+        rules={[{type:'email',required: true, message: 'Por favor, Ingresa tu correo' }]}
       >
         <Input  className="bg-transparent border-t-0 border-r-0 border-l-0 font-bold hover:bg-transparent hover:border-yellow-400 hover:border-t-0 hover:border-r-0 hover:border-l-0"/>
       </Form.Item>
@@ -62,7 +57,7 @@ function FormLogin(){
       <Form.Item className="px-5 pt-10"
       wrapperCol={{span: 24 }}>
         <Button type="primary" htmlType="submit" className="btn-difficulty btn-goal Btn">
-        <a href="../../userinterface">Iniciar Sesión   </a>
+        <a >Iniciar Sesión   </a>
           
         </Button>
       </Form.Item>

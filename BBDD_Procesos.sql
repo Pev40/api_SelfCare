@@ -51,11 +51,11 @@ DELIMITER ;
 
 USE selfcare;
 DELIMITER //
-DROP PROCEDURE IF EXISTS verToken//
-CREATE PROCEDURE verToken(IN Email VARCHAR(255))
+DROP PROCEDURE IF EXISTS AccederLogin//
+CREATE PROCEDURE AccederLogin(IN Email VARCHAR(255))
 BEGIN
 	DECLARE idClienteR INT;
-    SET idClienteR = (SELECT Password FROM login WHERE Usuario = Email);
+    SET idClienteR = (SELECT TOKEN FROM login WHERE Usuario = Email);
     SELECT idCliente, Nombre,Email FROM clientes WHERE idCliente = idClienteR;
 END;
 //
@@ -66,3 +66,4 @@ CALL VerUsuarios();
 CALL ActualizarPassword("Piero1234","pevv2016@gmail.com");
 CALL EliminarUsuario("pevv2016@gmail.com");
 SELECT * FROM login;
+CALL AccederLogin('rosa@gmail.com');

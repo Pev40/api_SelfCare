@@ -3,7 +3,7 @@ import "./title-page.css"
 
 function TitlePage(props) {
   const { title = "", subtitle = ""} = props;
-
+ 
   return (
     <div className="title-page text-center object-center container-title-log">
       <img className="logo" src={toplogo} alt="selfcare-logo-top-face" />
