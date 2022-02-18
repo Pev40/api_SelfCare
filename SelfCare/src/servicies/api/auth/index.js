@@ -1,9 +1,9 @@
-import { post } from "services/apiMykonos/api.service";
 
+import {post} from "../../../servicies/api/api.service"
 export const signIn = async ({ data }) => {
   try {
     const res = await post({
-      url: "login",
+      url: "usuario/login",
       data,
     });
 

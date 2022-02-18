@@ -1,6 +1,37 @@
 import { Form, Input, Button} from 'antd';
 import "./formlogin.css"
+
+import Login, { loginFields } from "models/Login.model";
+import { useContext, useState } from "react";
+import AuthContext from "contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 function FormLogin(){
+
+  const { singIn } = useContext(AuthContext);
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const { 
+    register,
+    handle,
+    formState: { errors },
+  }= useForm({ resolver: yupResolver(Login) });
+
+
+  const handleSubmitLoginForm = async (values) => {
+    try {
+      setIsLoading(true);
+      await signIn({ data: values });
+      navigate("/clientes");
+    } catch (error) {
+      setIsLoading(false);
+      console.error(error);
+    }
+  };
+
+
     return(
         <Form
       name="basic"
