@@ -33,10 +33,6 @@ const [cliente,setCliente] = useState(
   }
 )
 
-
-
-
-
 useEffect(()=>{
   const getClientes = () =>{
     fetch('http://localhost:3015/api/v1/usuario/')
@@ -44,8 +40,8 @@ useEffect(()=>{
     .then(res => setCliente(res))
   }
   getClientes();
-
-},[])
+  },[]
+)
 
 
   return (

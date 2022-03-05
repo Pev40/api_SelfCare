@@ -26,7 +26,6 @@ function FormLogin(){
         <Form
       onSubmit={()=>{
         console.log("Holass")
-        
       }}
       name="basic"
       initialValues={{ remember: true }}
