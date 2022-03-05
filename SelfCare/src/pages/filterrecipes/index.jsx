@@ -1,4 +1,3 @@
-import { NavBottom } from "../filterrecipes/components/NavBottom";
 import { ContentRecetasFiltros } from "../filterrecipes/components/contentRecetafiltro";
 import { SearchFiltro } from "../filterrecipes/components/searchFiltro";
 
@@ -11,9 +10,8 @@ function RecetasFiltro() {
       <header className="header">
         <SearchFiltro />
       </header>
-      <main>
         <ContentRecetasFiltros />
-      </main>
+
       <BottomMenu />
     </div>
   );

@@ -9,10 +9,10 @@ class LoginModel{
         let contrasenaGuardada = RecuperacionContraseña[0][0][0].Password;
         const bcrypt = require("bcryptjs");
         let coinciden = bcrypt.compareSync(Password,contrasenaGuardada);
-            console.log('Aceptado? : ',coinciden);
+            //console.log('Aceptado? : ',coinciden);
                 if(coinciden == true){
                     data2 = await this.verToken(email);
-                    console.log('error bycryps: ',data2);
+              //      console.log('error bycryps: ',data2);
                     return data2;
                 }else{
                     console.log('Error comparativa: ', coinciden);
@@ -23,7 +23,7 @@ class LoginModel{
         async verToken(email){
             const con = connectionDb.promise();
             const data = await con.query("CALL AccederLogin(?)",email)
-            console.log('error SQL: ',data[0][0]);
+            //console.log('error SQL: ',data[0][0]);
             return data[0][0][0];
         }
 

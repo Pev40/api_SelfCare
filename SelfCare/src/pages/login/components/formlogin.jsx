@@ -1,19 +1,41 @@
 import { Form, Input, Button} from 'antd';
 import { useHistory } from 'react-router-dom';
+import { createContext, useState } from "react";
+import { useCookies } from "react-cookie";
 import { post } from '../../../servicies/api/api.service';
 import "./formlogin.css"
 function FormLogin(){
+  const [cookies, setCookie, removeCookie] = useCookies([
+    "pagos_mykonos_user",
+    "pagos_mykonos_token",
+    "pagos_mykonos_email",
+  ]);
+  const [user, setUser] = useState(cookies["pagos_mykonos_user"] || null);
+  const [token, setToken] = useState(cookies["pagos_mykonos_token"] || null);
+  const [email, setEmail] = useState(cookies["pagos_mykonos_email"] || null);
+  const [puntaje, setPuntaje] = useState(cookies["pagos_mykonos_puntaje"] || null);
+
   const history = useHistory();
   const handleFinish = async(values) =>{
     try {
           console.log("Holass",values)
-    const registro = await post({
+      const registro = await post({
       url: '/usuario/login',
       data: {
         Email : values.email,
         Password : values.password
       }
     })
+
+    setCookie("pagos_mykonos_user",registro.Nombre);
+    setCookie("pagos_mykonos_token",registro.idCliente);
+    setCookie("pagos_mykonos_email",registro.Email);
+    setCookie("pagos_mykonos_puntaje",registro.Puntaje);
+    setUser(registro.Nombre);
+    setToken(registro.idCliente);
+    setEmail(registro.Email);
+    setPuntaje(registro.Puntaje);
+    
     console.log(registro);
     history.push('/userinterface');  
     } catch (error) {
@@ -26,6 +48,7 @@ function FormLogin(){
         <Form
       onSubmit={()=>{
         console.log("Holass")
+        
       }}
       name="basic"
       initialValues={{ remember: true }}

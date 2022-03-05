@@ -8,9 +8,7 @@ function Quizzes() {
   return (
       <div className="flex flex-col h-screen">
             <Header />
-            <StartQuiz
-              fetchQuestions={fetchQuestions}
-            />
+            <StartQuiz/>
             <BottomMenu/>
         </div>
        

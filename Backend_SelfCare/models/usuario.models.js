@@ -14,6 +14,13 @@ class UsuarioModel{
         return data;
     }
 
+    async createDatosFisicoDelUsuario(Peso,Talla ,Sexo,FechaDeNacimiento,idUsuario){
+        const con = connectionDb.promise();
+        const data = await con.query("CALL CrearDatosUsuario(?,?,?,?,?)",[idUsuario,Peso,Talla,Sexo,FechaDeNacimiento]);
+        console.log("Error:",data);
+        return data;
+    }
+
     async delete(Email){
         console.log(Email);
         const con = connectionDb.promise();

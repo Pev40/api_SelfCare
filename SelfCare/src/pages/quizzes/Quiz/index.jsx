@@ -270,7 +270,9 @@ function Quiz(){
           </section>
         </>
       )}
+      <BottomMenu/>
     </section>
+    
   );
 };
 

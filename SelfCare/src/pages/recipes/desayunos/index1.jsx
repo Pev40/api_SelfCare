@@ -58,13 +58,7 @@ function PageRecetas() {
             <div>
                 <CollapseRecetas
                 title="Ingredientes"
-                description="4 tostadas de trigo integral
-                1 aguacate maduro
-                4 huevos
-                200 g de rábanos
-                1/2 cdta. de sal
-                1 cdta. de ajo en polvo
-                1/2 cdta. de pimienta negra molida"/>
+                description="4 tostadas de trigo integral,1 aguacate maduro,4 huevos,200 g de rábanos, 1/2 cdta. de sal, 1 cdta. de ajo en polvo,1/2 cdta. de pimienta negra molida"/>
 
             </div>
             <hr />

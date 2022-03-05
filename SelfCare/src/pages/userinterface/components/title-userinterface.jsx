@@ -1,6 +1,10 @@
 import logointerface from "../../../images/logo-interface.png";
+import Cookies from 'universal-cookie';
 function TitlePageUserInterface(props) {
-    const { title = "",} = props;
+  const cookies = new Cookies();
+  let cookName = cookies.get('pagos_mykonos_user')
+    let construcccion = "Bienvenido "+ cookName;
+    const { title = construcccion,} = props;
   
     return (
       <div className="title-page bg-secondary flex justify-between py-12 px-6">
