@@ -1,0 +1,20 @@
+.h1 {
+  font-family: "Quicksand", serif;
+  font-size: 48px;
+  font-weight: bold;
+}
+.h2 {
+  font-family: "Quicksand", sans-serif;
+  font-size: 24px;
+  font-weight: medium;
+  color: #23233b;
+}
+.h3 {
+  font-family: "Quicksand", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+}
+.p {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 16px;
+}

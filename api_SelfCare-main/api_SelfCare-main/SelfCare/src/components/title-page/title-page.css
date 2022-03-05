@@ -1,0 +1,19 @@
+.logo {
+    width: 100px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .container-title-log {
+    padding: 24px;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .container-title-log h2 {
+    margin-bottom: 0;
+    color: var(--main-bg-color);
+  }
+  
