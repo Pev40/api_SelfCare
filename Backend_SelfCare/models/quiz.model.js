@@ -6,7 +6,7 @@ class QuizModel{
 
     async registrarQuiz(idUsuario, Puntaje){
         const con = connectionDb.promise();
-        const data = await con.query("CALL RegistrarQuizUsuario(?)",[idUsuario, Puntaje]);
+        const data = await con.query("CALL RegistrarQuizUsuario(?,?)",[idUsuario, Puntaje]);
         return data;
     }
 

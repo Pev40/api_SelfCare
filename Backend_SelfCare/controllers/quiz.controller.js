@@ -3,6 +3,7 @@
  */
  const express = require("express");
 const PreguntasModel = require("../models/preguntas.model");
+const QuizModel = require("../models/quiz.model");
 const RespuestasModel = require("../models/respuestas.model");
  const router = express.Router();
  
@@ -13,6 +14,7 @@ const RespuestasModel = require("../models/respuestas.model");
 const PreguntasDb = new PreguntasModel;
 const RespuestaDb = new RespuestasModel;
 
+const quizDb = new QuizModel;
   class QuizController{
     
     async getCuestionario(NivelDificultad){
@@ -24,16 +26,27 @@ const RespuestaDb = new RespuestasModel;
               return null;
             });
             for (let i = 0; i < data.length; i++) {
-                let arrayRespuestas = []
-                for (let j = 0; j < 4; j++) {
+                let answerOptions = []
+                for (let j = 0; j < 3; j++) {
                     let numAletorio = Math.random() * (47-1) + 1
                     if(numAletorio != data[i].RespuestaCorrecta){
-                    let respuestaAletaoria = await RespuestaDb.createRespuesta(numAletorio);
-                    arrayRespuestas.push(respuestaAletaoria);
+                    let answerText = await RespuestaDb.createRespuesta(numAletorio);
+                    let isCorrect=false;
+                    let construido = {answerText,isCorrect}
+                    answerOptions.push(construido);
                 }}
-                data[i].respuestasAleatorias = arrayRespuestas;
-                arrayRespuestas = []
+                let isCorrect=true;
+                let answerText = data[i].NombreRespuesta;
+                let construido = {answerText,isCorrect}
+                answerOptions.push(construido)
+                answerOptions.sort();
+                let questionText = data[i].Nombre;
+                let fact = data[i].fact;
+                let construtorSalida = {questionText,answerOptions,fact}
+                data[i] = construtorSalida;
+                answerOptions = []
             }
+
             
            return data;
         } catch (error) {
@@ -41,6 +54,21 @@ const RespuestaDb = new RespuestasModel;
             return new Error('Error De Controlador Quiz');
         }
 
+    }
+
+    async savePoints(idUsuario, Puntuacion){
+      try {
+       
+      const result = quizDb.registrarQuiz(idUsuario,Puntuacion);
+      const data = await result.catch((err) => {
+        console.log("Controller Error: ", err);
+        return null;
+      });
+      return data;
+    } catch (error) {
+      console.log("Error Controller Try: ", error);
+      return new Error("Error De Controlador Quiz");
+    }
     }
 
 

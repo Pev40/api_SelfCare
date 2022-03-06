@@ -45,6 +45,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
       const info = await usuarioControl.login(req.body.Email,req.body.Password);
+      console.log(info);
       res.setHeader("Content-Type", "application/json");
       if (info.error) {
         res.status(info.error).end(JSON.stringify(info)).json({
@@ -94,5 +95,24 @@ router.post("/login", async (req, res) => {
     }
 
   })
+
+
+  router.post('/usuario',async(req,res)=>{
+    try {
+    const info = await usuarioControl.getUsuarioEspecifico(req.body.email);
+    res.setHeader("Content-Type", "application/json");
+    if (info.error) {
+      res.status(info.error).end(JSON.stringify(info)).json({
+        status: "ERROR",
+      });
+      return;
+    }
+    return res.end(JSON.stringify(info));
+    } catch (error) {
+        console.log(error);
+        return res.status(500);
+    }
+
+  })  
 
 module.exports = router;

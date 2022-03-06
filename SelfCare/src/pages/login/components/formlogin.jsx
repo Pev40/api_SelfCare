@@ -26,7 +26,9 @@ function FormLogin(){
         Password : values.password
       }
     })
-
+    if(registro.idCliente === undefined){
+      return null;
+    }else{
     setCookie("pagos_mykonos_user",registro.Nombre);
     setCookie("pagos_mykonos_token",registro.idCliente);
     setCookie("pagos_mykonos_email",registro.Email);
@@ -38,7 +40,7 @@ function FormLogin(){
     
     console.log(registro);
     history.push('/userinterface');  
-    } catch (error) {
+    }} catch (error) {
       console.error(error);
     }
 

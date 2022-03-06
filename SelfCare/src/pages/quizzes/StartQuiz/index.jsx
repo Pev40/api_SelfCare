@@ -23,8 +23,8 @@ const StartQuiz = () => {
   }
   const handleSubmitMedium = () => {
  
-    setCookie("pagos_mykonos_dificultad",1);
-    setDificultad(1);
+    setCookie("pagos_mykonos_dificultad",2);
+    setDificultad(2);
     history.push('/quiz')
     return
 
@@ -33,8 +33,8 @@ const StartQuiz = () => {
 
 const handleSubmitHard = () => {
  
-  setCookie("pagos_mykonos_dificultad",1);
-  setDificultad(1);
+  setCookie("pagos_mykonos_dificultad",3);
+  setDificultad(3);
   history.push('/quiz')
   return
 
