@@ -85,7 +85,7 @@ DELIMITER //
 DROP PROCEDURE IF EXISTS PreguntasQuiz//
 CREATE PROCEDURE PreguntasQuiz(IN NivelDeDificultadCLI INT)
 BEGIN
-    SELECT PRE.idPregunta,PRE.Nombre,PRE.RespuestaCorrecta,RTPA.NombreRespuesta FROM preguntas PRE INNER JOIN respuestas RTPA on PRE.RespuestaCorrecta = RTPA.idRespuesta where PRE.NivelDeDificultad = NivelDeDificultadCLI;
+    SELECT PRE.idPregunta,PRE.Nombre,PRE.RespuestaCorrecta,RTPA.NombreRespuesta,PRE.fact FROM preguntas PRE INNER JOIN respuestas RTPA on PRE.RespuestaCorrecta = RTPA.idRespuesta where PRE.NivelDeDificultad = NivelDeDificultadCLI;
 END;
 //
 DELIMITER ;
@@ -119,7 +119,7 @@ BEGIN
 END;
 //
 DELIMITER ;
-
+CALL PuntajeUsuarioQuiz(16);
 
 DELIMITER //
 DROP PROCEDURE IF EXISTS RecetasPortada//
