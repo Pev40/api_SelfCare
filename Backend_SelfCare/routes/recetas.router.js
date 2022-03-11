@@ -49,7 +49,23 @@ router.post("/filter", async (req, res) => {
   }
 });
 
-
+router.post("/especifico", async (req, res) => {
+  try {
+    console.log(req.body.idReceta);
+    const info = await RecetasControlador.RecetasEspecifica(req.body.idReceta);
+    res.setHeader("Content-Type", "application/json");
+    if (info.error) {
+      res.status(info.error).end(JSON.stringify(info)).json({
+        status: "ERROR",
+      });
+      return;
+    }
+    res.end(JSON.stringify(info));
+  } catch (error) {
+    console.log(error);
+    return res.status(501);
+  }
+});
 
 
 

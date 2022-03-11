@@ -209,7 +209,27 @@ END;
 DELIMITER ;
 
 
-CALL FiltroRecetas(400,400,400,400,2,40,1);
+DELIMITER //
+DROP PROCEDURE IF EXISTS ObtenerRecetaEspecifica//
+CREATE PROCEDURE ObtenerRecetaEspecifica(IN idRecetaCLI INT)
+BEGIN
+		SELECT 
+		REC.idRecetas,
+		COM.Nombre AS "Comida",
+        DIF.Nombre AS "Dificultad",
+        REC.NombreReceta,
+        
+        REC.NivelCalorico
+		FROM  recetas REC 
+		INNER JOIN dificultad DIF ON REC.idDificultad = DIF.idDificultad 
+        INNER JOIN comidas COM ON REC.idComida = COM.idComidas 
+        WHERE REC.idRecetas = idRecetaCLI;
+END;
+//
+DELIMITER ;
+
+CALL ObtenerRecetaEspecifica(1);
+CALL FiltroRecetas(400,400,400,400,1,40,2);
 CALL EliminarFavorito(16,1);
 CALL PreguntasQuiz(1);
 CALL RespuestaAletaroriaQuiz(5);

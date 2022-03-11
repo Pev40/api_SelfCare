@@ -114,6 +114,22 @@ class RecetasController {
       return new Error("Error De Controlador Quiz");
     }
   }
+
+  async RecetasEspecifica(idReceta) {
+    try {
+      let result = recetasDb.getObtener(idReceta);
+      const data = await result.catch((err) => {
+        console.log("Controller Error: ", err);
+        return null;
+      });
+      return data;
+    } catch (error) {
+      console.log("Error Controller Try: ", error);
+      return new Error("Error De Controlador Quiz");
+    }
+  }
+
+
 }
 
 module.exports = RecetasController;

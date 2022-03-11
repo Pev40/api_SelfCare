@@ -15,6 +15,7 @@ import { PageFailanswer } from "./pages/failanswer";
 import { PageRecetas } from "./pages/recipes";
 import { RecetasFiltro } from "./pages/filterrecipes";
 import { FilterQuiz } from "./pages/filterquiz";
+import { Favorite } from "./pages/favorites";
 import 'antd/dist/antd.css'; 
 import "./App.css";
 import { useEffect, useState } from "react";
@@ -99,6 +100,9 @@ useEffect(()=>{
           </Route>
           <Route path="/filterquiz">
             <FilterQuiz />
+          </Route>
+          <Route path="/favorite">
+            <Favorite />
           </Route>
         </Switch>
       </Router>
