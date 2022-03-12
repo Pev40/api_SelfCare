@@ -1,36 +1,63 @@
 import { CollapseRecetas } from '../recipes/components/collapse';
 import { Rate } from 'antd';
 import desayuno1 from './assets/img/desayuno1.JPG'
-
+import { useCallback, useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie'
+import { useHistory } from 'react-router-dom'
+import Cookies from 'universal-cookie';
+import { post, get } from '../../servicies/api/api.service'
 function PageRecetas() {
+    const cookies = new Cookies();
+    let cookName = cookies.get('idDeLaRececta')
+    const history = useHistory()
+    const [Recetas, setRecetas] = useState([])
+    const handleFinish = useCallback(async () => {
+      const recetasDb = await post({
+        url: "/recetas/especifico",
+        data: {"idReceta": Number(cookName)}
+      })
+      setRecetas(recetasDb)
+      console.log('Consulta BBDD', recetasDb)
+      return recetasDb
+    }, [])
+  
+    useEffect(() => {
+      if (Recetas.length === 0) {
+        handleFinish()
+      }
+    }, [handleFinish, Recetas.length])
+  
+    let randon = Math.random() * (5-1) + 1;
+
   return (
     <div className="flex flex-col h-screen">
         <img src={desayuno1}/>
-
-        <div className="bg-secundary flex-grow pt-3 px-4">
+        {Recetas.map((objeto)=>{
+            return (
+            <div className="bg-secundary flex-grow pt-3 px-4">
             <div>
                 <div className="grid grid-cols-2">
-                    <h3 className="font-bold">Panqueques</h3>
+                    <h3 className="font-bold">{objeto.NombreReceta}</h3>
                     <p className="flex justify-end">♥</p>
                 </div>
                 <div>
-                    <p>333 kcal</p>
+                    <p>{objeto.NivelCalorico} kcal</p>
                 </div>
             </div>
             
             <div className="grid grid-cols-3 gap-4 p-6 text-center">
                 <div>
-                    <p>32g</p>
+                    <p>{objeto.Proteinas} g</p>
                     <h4 className="font-bold">Proteínas</h4>
                 </div>
 
                 <div>
-                    <p>29g</p>
+                    <p>{objeto.Carboidratos} g</p>
                     <h4 className="font-bold">Carbs</h4>
                 </div>
 
                 <div>
-                    <p>8g</p>
+                    <p>{objeto.Grasas} g</p>
                     <h4 className="font-bold">Grasas</h4>
                 </div>
             </div>
@@ -38,15 +65,15 @@ function PageRecetas() {
             <div className="grid grid-cols-3 pb-2 pt-4 text-center">
                 <div>
                     <p>Ingredientes</p>
-                    <p className="font-bold">6</p> 
+                    <p className="font-bold">{objeto.Grasas}</p> 
                 </div>
                 <div>
                     <p>Dificultad</p>
-                    <p className="font-bold">fácil</p>
+                    <p className="font-bold">{objeto.Dificultad}</p>
                 </div>
                 <div>
                     <p>Tiempo</p>
-                    <p className="font-bold">10'</p>
+                    <p className="font-bold">{objeto.TiempoDePreparacion} '</p>
                 </div>
             </div>
             <div className="flex justify-center gap-x-40 pb-5">
@@ -58,32 +85,26 @@ function PageRecetas() {
             <div>
                 <CollapseRecetas 
                 title="Ingredientes"
-                description="1 huevo,
-                1 cucharada de harina de coco o almendra,
-                35g de polvo de proteínas,
-                Una pizca de polvo para hornear,
-                Una piza de canela molida,
-                1 banana madura."/>
+                description={objeto.Ingredientes}/>
 
             </div>
             <hr />
             <div>
                 <CollapseRecetas
                 title="Preparación"
-                description="En un recipiente, triturar la banana con un tenedor y mezclar con los demás ingredientes.
-                Verter la masa en una máquina de waffles precalentada y hornear el waffle durante unos 5 minutos hasta que esté dorado. Si la máquina de waffles no es de teflón, rociar aceite en la máquina.
-                Usando la misma masa, se pueden preparar panqueques.
-                Los waffles se pueden servir con yogur, nieve de banana casera, mousse de proteína, fruta, chocolate oscuro, jarabe de arce o granos descortezados de cacao."/>
+                description={objeto.Preparacion}/>
                 
             </div>
             <hr/>
             <div className="flex justify-between items-center  pt-2 pb-5">
                 <h3 className="font-bold">Valorar</h3>
-                <Rate allowHalf defaultValue={3}/>
+                <Rate allowHalf defaultValue={randon}/>
             </div>
      
         
-        </div>
+        </div>)
+        })}
+
     </div>
   );
 }
